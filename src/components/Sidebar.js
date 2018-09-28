@@ -20,6 +20,7 @@ class Sidebar extends Component {
 
     render() {
         const { query } = this.state
+        const { restaurants } = this.props
 
         return (
             <div className="sidebar">
@@ -31,6 +32,17 @@ class Sidebar extends Component {
                     //call the updateQuery method as text is entered
                     onChange={(event) => this.updateQuery(event.target.value)}
                 />
+                {/* <ul>
+                    {
+                        restaurants
+                            .map(place => (
+                                <li key={place.id}>
+                                    {place.name}
+                                </li>
+                            )
+                            )
+                    }
+                </ul> */}
             </div>
         )
     }
