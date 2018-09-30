@@ -32,17 +32,17 @@ class Sidebar extends Component {
                     //call the updateQuery method as text is entered
                     onChange={(event) => this.updateQuery(event.target.value)}
                 />
-                {/* <ul>
+                <ul>
                     {
                         restaurants
                             .map(place => (
-                                <li key={place.id}>
-                                    {place.name}
+                                <li key={place.venue.id}>
+                                    {place.venue.name}
                                 </li>
                             )
                             )
                     }
-                </ul> */}
+                </ul>
             </div>
         )
     }

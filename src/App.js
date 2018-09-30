@@ -10,6 +10,7 @@ class App extends Component {
   }
 
 
+
   //https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
   getGoogleMaps() {
     // If we haven't already defined the promise, define it
@@ -48,69 +49,70 @@ class App extends Component {
   //----------------------------------------------------------//
 
   componentDidMount() {
-    // Once the Google Maps API has finished loading, initialize the map
 
-    var map;
-    var infowindow;
+    //When component is mounted, fetch foursquare data and set state to list of restaurants in data response.
+    fetch("https://api.foursquare.com/v2/venues/explore?client_id=FSPSJP5YR4LWW2H3PXKNOMMEV3WALNUQREGMOOBHST2YDBNR&client_secret=C5Y3AG0LE0ACRHLEQ3BP2P3SAL3I12S25XTAVIAEG14ZX2RF&v=20180323&limit=20&ll=27.9427,-82.4518&radius=10000&query=restaurants")
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ restaurants: data.response.groups[0].items })
 
-    this.getGoogleMaps().then((google) => {
+        // Once the Google Maps API has finished loading, initialize the map
+        this.getGoogleMaps().then((google) => {
+          var amalie = { lat: 27.9427, lng: -82.4518 };
+          this.map = new google.maps.Map(document.getElementById('map'), {
+            center: amalie,
+            zoom: 15,
+          });
 
-      var amalie = { lat: 27.9427, lng: -82.4518 };
+          this.state.restaurants.forEach(place => {
+            let marker = new google.maps.Marker({
+              position: { lat: place.venue.location.lat, lng: place.venue.location.lng },
+              map: this.map
+              // venue: place.venue,
+              // id: place.venue.id,
+              // name: place.venue.name,
+              // animation: google.maps.Animation.DROP
+            })
 
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: amalie,
-        zoom: 15
+            this.infowindow = new google.maps.InfoWindow();
+
+
+            let infoBox = '<div class="info_box">' +
+              '<h4>' + place.venue.name + '</h4>' +
+              '<p>' + place.venue.location.formattedAddress + '</p>' +
+              '<p>' + place.venue.hereNow.summary + '</p>' +
+              '</div>';
+            marker.addListener('click', () => {
+              if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+              else { marker.setAnimation(google.maps.Animation.BOUNCE); }
+              setTimeout(() => { marker.setAnimation(null) }, 1500);
+            });
+            google.maps.event.addListener(marker, 'click', () => {
+              this.infowindow.setContent(infoBox);
+              // map.setZoom(13);
+              this.map.setCenter(marker.position);
+              this.infowindow.open(this.map, marker);
+              this.map.panBy(0, -125);
+            });
+
+          });
+
+        })
+      })
+      .catch((error) => {
+        alert('Sorry, there has been an error' + error);
       });
 
-      infowindow = new google.maps.InfoWindow();
 
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch({
-        location: amalie,
-        radius: 500,
-        type: ['restaurant'],
-      }, setMarkers);
 
-      function setMarkers(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            createMarker(results[i]);
-            add(results[i]);
-          }
-        }
-      }
-
-      function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: placeLoc
-        });
-
-        google.maps.event.addListener(marker, 'click', function () {
-          infowindow.setContent(`<h3>${place.name}</h3>`);
-          infowindow.open(map, this);
-        });
-      }
-
-      let restList = [];
-
-      function add(obj) {
-        restList.push(obj)
-      };
-
-      this.setState({ restaurants: restList })
-      console.log(this.state.restaurants)
-
-    });
-
-  }
+  };
 
   //----------------------------------------------------------//
 
 
-  render() {
 
+
+  render() {
     return (
       <div className="App">
         <Sidebar restaurants={this.state.restaurants} />
