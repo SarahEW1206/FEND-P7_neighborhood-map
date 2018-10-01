@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 
 class Sidebar extends Component {
 
+    updateQuery = (query) => {
+        this.setState({ query });
+    }
 
-    // clearQuery = () => {
-    //     this.setState({ query: '' })
-    // }
 
     render() {
-        const { query, restaurants, li_click, updateQuery } = this.props
+        const { query, restaurants, li_click, onInput } = this.props
 
         return (
             <div className="sidebar">
@@ -20,7 +20,7 @@ class Sidebar extends Component {
                     //Value reflects the state.
                     value={query}
                     //call the updateQuery method as text is entered
-                    onChange={(event) => updateQuery(event.target.value)}
+                    onChange={(event) => onInput(event.target.value, event)}
                 />
                 <ul>
                     {

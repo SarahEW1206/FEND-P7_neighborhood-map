@@ -16,6 +16,8 @@ class App extends Component {
     }
     this.li_click = this.li_click.bind(this);
     this.updateQuery = this.updateQuery.bind(this);
+    this.filterList = this.filterList.bind(this);
+    this.onInput = this.onInput.bind(this);
   }
 
 
@@ -79,6 +81,24 @@ class App extends Component {
   //Update the state based on what is typed into the input field 
   updateQuery = (query) => {
     this.setState({ query });
+  }
+
+  // clearQuery = () => {
+  //     this.setState({ query: '' })
+  // }
+
+  filterList = (event) => {
+    var updatedList = this.state.restaurants;
+    updatedList = updatedList.filter(function (item) {
+      return item.venue.name.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    this.setState({ restaurants: updatedList });
+  }
+
+  onInput = (query, event) => {
+    this.updateQuery(query);
+    this.filterList(event);
   }
 
   //----------------------------------------------------------//
@@ -159,6 +179,7 @@ class App extends Component {
         <Sidebar
           restaurants={this.state.restaurants}
           li_click={this.li_click}
+          onInput={this.onInput}
           updateQuery={this.updateQuery}
           markers={this.state.markers}
           query={this.state.query} />
