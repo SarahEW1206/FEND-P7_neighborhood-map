@@ -9,11 +9,13 @@ class App extends Component {
     super(props);
     this.state = {
       restaurants: [],
-      markers: '',
-      infoboxes: '',
+      query: '',
+      markers: [],
+      infoboxes: [],
 
     }
     this.li_click = this.li_click.bind(this);
+    this.updateQuery = this.updateQuery.bind(this);
   }
 
 
@@ -72,7 +74,12 @@ class App extends Component {
 
     }
   }
+  //----------------------------------------------------------//
 
+  //Update the state based on what is typed into the input field 
+  updateQuery = (query) => {
+    this.setState({ query });
+  }
 
   //----------------------------------------------------------//
 
@@ -147,10 +154,14 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.markers)
     return (
       <div className="App">
-        <Sidebar restaurants={this.state.restaurants} li_click={this.li_click} markers={this.state.markers} />
+        <Sidebar
+          restaurants={this.state.restaurants}
+          li_click={this.li_click}
+          updateQuery={this.updateQuery}
+          markers={this.state.markers}
+          query={this.state.query} />
         <Map />
       </div>
     );
