@@ -36,7 +36,7 @@ class Sidebar extends Component {
                     {
                         restaurants
                             .map(place => (
-                                <li key={place.venue.id}>
+                                <li onClick={() => { this.props.li_click(place) }} key={place.venue.id}>
                                     {place.venue.name}
                                 </li>
                             )

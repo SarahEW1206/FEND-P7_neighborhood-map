@@ -5,8 +5,15 @@ import './App.css';
 
 class App extends Component {
 
-  state = {
-    restaurants: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      restaurants: [],
+      markers: '',
+      infoboxes: '',
+
+    }
+    this.li_click = this.li_click.bind(this);
   }
 
 
@@ -46,7 +53,29 @@ class App extends Component {
     this.getGoogleMaps();
   }
 
+
+  li_click(place) {
+    console.log(place.venue)
+    console.log(this.state.markers)
+    let marker = this.state.markers.filter(m => m.id === place.venue.id)[0];
+    let info_obj = this.state.infoboxes.filter(i => i.id === place.venue.id)[0];
+    let infoBox = info_obj
+    if (marker && infoBox) {
+      if (marker.getAnimation() !== null) { marker.setAnimation(null); }
+      else { marker.setAnimation(this.google.maps.Animation.BOUNCE); }
+      setTimeout(() => { marker.setAnimation(null) }, 1500);
+
+      this.infowindow.setContent(infoBox.contents);
+      this.map.setCenter(marker.position);
+      this.infowindow.open(this.map, marker);
+      this.map.panBy(0, -125);
+
+    }
+  }
+
+
   //----------------------------------------------------------//
+
 
   componentDidMount() {
 
@@ -59,23 +88,28 @@ class App extends Component {
         // Once the Google Maps API has finished loading, initialize the map
         this.getGoogleMaps().then((google) => {
           var amalie = { lat: 27.9427, lng: -82.4518 };
+          this.google = google;
           this.map = new google.maps.Map(document.getElementById('map'), {
             center: amalie,
             zoom: 15,
           });
+          this.infowindow = new google.maps.InfoWindow();
+
+          let markers = [];
+          this.setState({ markers: markers })
+          let info_boxes = [];
+          this.setState({ infoboxes: info_boxes })
+
 
           this.state.restaurants.forEach(place => {
             let marker = new google.maps.Marker({
               position: { lat: place.venue.location.lat, lng: place.venue.location.lng },
-              map: this.map
+              map: this.map,
               // venue: place.venue,
-              // id: place.venue.id,
+              id: place.venue.id,
               // name: place.venue.name,
               // animation: google.maps.Animation.DROP
             })
-
-            this.infowindow = new google.maps.InfoWindow();
-
 
             let infoBox = '<div class="info_box">' +
               '<h4>' + place.venue.name + '</h4>' +
@@ -95,16 +129,16 @@ class App extends Component {
               this.map.panBy(0, -125);
             });
 
-          });
+            markers.push(marker);
 
+            info_boxes.push({ id: place.venue.id, name: place.venue.name, contents: infoBox });
+          });
         })
+
       })
       .catch((error) => {
         alert('Sorry, there has been an error' + error);
       });
-
-
-
   };
 
   //----------------------------------------------------------//
@@ -113,9 +147,10 @@ class App extends Component {
 
 
   render() {
+    console.log(this.state.markers)
     return (
       <div className="App">
-        <Sidebar restaurants={this.state.restaurants} />
+        <Sidebar restaurants={this.state.restaurants} li_click={this.li_click} markers={this.state.markers} />
         <Map />
       </div>
     );
