@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Map from './components/Map'
 import Sidebar from './components/Sidebar'
+import Header from './components/Header'
 import './App.css';
 
 class App extends Component {
@@ -13,12 +14,24 @@ class App extends Component {
       query: '',
       markers: [],
       infoboxes: [],
+      showSidebar: true
 
     }
     this.li_click = this.li_click.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.filterList = this.filterList.bind(this);
+    this.handleMenuToggle = this.handleMenuToggle.bind(this)
   }
+
+
+  handleMenuToggle() {
+    if (this.state.showSidebar) {
+      this.setState({ showSidebar: false });
+    } else {
+      this.setState({ showSidebar: true })
+    }
+  }
+
 
 
 
@@ -77,6 +90,8 @@ class App extends Component {
   //----------------------------------------------------------//
 
   //Update the state based on what is typed into the input field 
+
+  //TODO: turn this into a ternary??
   handleSearch = (query, event) => {
     if (!query) {
       this.setState({ currentList: this.state.restaurants })
@@ -93,9 +108,9 @@ class App extends Component {
     });
   }
 
-  clearQuery = () => {
-    this.setState({ query: '' })
-  }
+  // clearQuery = () => {
+  //   this.setState({ query: '' })
+  // }
 
   filterList = (event) => {
     var updatedList = this.state.restaurants;
@@ -183,16 +198,23 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.restaurants)
     return (
       <div className="App">
-        <Sidebar
-          currentList={this.state.currentList}
-          li_click={this.li_click}
-          handleSearch={this.handleSearch}
-          markers={this.state.markers}
-          query={this.state.query} />
-        <Map />
+        <Header
+          handleMenuToggle={this.handleMenuToggle}
+          showing={this.state.showSidebar}
+        />
+        <div className="container">
+          <Sidebar
+            currentList={this.state.currentList}
+            li_click={this.li_click}
+            handleSearch={this.handleSearch}
+            markers={this.state.markers}
+            showing={this.state.showSidebar}
+            query={this.state.query} />
+
+          <Map />
+        </div>
       </div>
     );
   }
