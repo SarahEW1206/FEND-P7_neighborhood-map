@@ -142,7 +142,7 @@ class App extends Component {
           this.google = google;
           this.map = new google.maps.Map(document.getElementById('map'), {
             center: amalie,
-            zoom: 15,
+            zoom: 14,
             styles: [
               {
                 "featureType": "administrative",
@@ -239,7 +239,7 @@ class App extends Component {
               venue: place.venue,
               id: place.venue.id,
               name: place.venue.name,
-              // animation: google.maps.Animation.DROP
+              animation: google.maps.Animation.DROP
             })
 
             let infoBox = '<div class="info_box">' +
@@ -254,7 +254,7 @@ class App extends Component {
             });
             google.maps.event.addListener(marker, 'click', () => {
               this.infowindow.setContent(infoBox);
-              // map.setZoom(13);
+              this.map.setZoom(15);
               this.map.setCenter(marker.position);
               this.infowindow.open(this.map, marker);
               this.map.panBy(0, -125);
