@@ -10,7 +10,7 @@ class Sidebar extends Component {
 
 
     render() {
-        const { query, restaurants, li_click, onInput } = this.props
+        const { query, currentList, li_click, handleSearch } = this.props
 
         return (
             <div className="sidebar">
@@ -20,11 +20,11 @@ class Sidebar extends Component {
                     //Value reflects the state.
                     value={query}
                     //call the updateQuery method as text is entered
-                    onChange={(event) => onInput(event.target.value, event)}
+                    onChange={(event) => handleSearch(event.target.value, event)}
                 />
                 <ul>
                     {
-                        restaurants
+                        currentList
                             .map(place => (
                                 <li onClick={() => { li_click(place) }} key={place.venue.id}>
                                     {place.venue.name}
