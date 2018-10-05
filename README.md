@@ -1,14 +1,14 @@
-## NOTE: 
-- This project is still in dev mode, pending approval! 
-
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 At the bottom of this Read Me, you will find more information on how to perform common tasks.<br>
 
-## To launch this app:
+## To launch this app from Production:
 - Clone this repo: https://github.com/SarahEW1206/FEND-P7_neighborhood-map
 - Run npm install to install dependencies.
 - Run npm start
+
+## To access the built version:
+- Simply visit https://sarahew1206.github.io/FEND-P7_neighborhood-map/
 
 ## To use the app:
 - Simply click on a map marker or list item to bring up the modal window showing (a bit) more info.
