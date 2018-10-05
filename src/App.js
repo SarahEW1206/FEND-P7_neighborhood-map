@@ -15,12 +15,14 @@ class App extends Component {
       markers: [],
       infoboxes: [],
       showSidebar: true
-
     }
+
     this.li_click = this.li_click.bind(this);
+    this.li_enter = this.li_enter.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.filterList = this.filterList.bind(this);
     this.handleMenuToggle = this.handleMenuToggle.bind(this)
+
   }
 
 
@@ -84,7 +86,12 @@ class App extends Component {
       this.map.setCenter(marker.position);
       this.infowindow.open(this.map, marker);
       this.map.panBy(0, -125);
+    }
+  }
 
+  li_enter(event, place) {
+    if (event.key === "Enter") {
+      this.li_click(place)
     }
   }
   //----------------------------------------------------------//
@@ -101,6 +108,7 @@ class App extends Component {
       this.setState({ query }, this.filterList(event));
     }
 
+    // Ryan Waite
     this.state.markers.forEach(m => {
       m.name.toLowerCase().includes(query) ?
         m.setVisible(true) :
@@ -288,6 +296,7 @@ class App extends Component {
           <Sidebar
             currentList={this.state.currentList}
             li_click={this.li_click}
+            li_enter={this.li_enter}
             handleSearch={this.handleSearch}
             markers={this.state.markers}
             showing={this.state.showSidebar}

@@ -6,7 +6,7 @@ class Sidebar extends Component {
 
 
     render() {
-        const { query, currentList, li_click, handleSearch, showing } = this.props
+        const { query, currentList, li_click, li_enter, handleSearch, showing } = this.props
 
         return (
 
@@ -26,7 +26,7 @@ class Sidebar extends Component {
                             {
                                 currentList
                                     .map(place => (
-                                        <li onClick={() => { li_click(place) }} key={place.venue.id}>
+                                        <li tabIndex="0" onClick={() => { li_click(place) }} onKeyPress={(event) => { li_enter(event, place) }} key={place.venue.id}>
                                             {place.venue.name}
                                         </li>
                                     )
