@@ -6,13 +6,14 @@ class Sidebar extends Component {
 
 
     render() {
-        const { query, currentList, li_click, li_enter, handleSearch, showing } = this.props
+        const { query, currentList, listClick, listEnter, handleSearch, showing } = this.props
 
         return (
 
-            <div>
+            <section>
                 {showing &&
-                    <div className="sidebar">
+                    <div role="menu" className="sidebar">
+                        <p className="sidebar-text">Places to dine around Amalie Arena, home of the Tampa Bay Lightning!</p>
                         <input
                             type="text"
                             placeholder="Search here"
@@ -26,7 +27,7 @@ class Sidebar extends Component {
                             {
                                 currentList
                                     .map(place => (
-                                        <li tabIndex="0" onClick={() => { li_click(place) }} onKeyPress={(event) => { li_enter(event, place) }} key={place.venue.id}>
+                                        <li tabIndex="0" onClick={() => { listClick(place) }} onKeyPress={(event) => { listEnter(event, place) }} key={place.venue.id}>
                                             {place.venue.name}
                                         </li>
                                     )
@@ -36,7 +37,7 @@ class Sidebar extends Component {
 
 
                     </div>}
-            </div>
+            </section>
 
         )
     }
