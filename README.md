@@ -1,9 +1,25 @@
+## NOTE: 
+- This project is still in dev mode, pending approval! 
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+At the bottom of this Read Me, you will find more information on how to perform common tasks.<br>
+
+## To launch this app:
+- Clone this repo: https://github.com/SarahEW1206/FEND-P7_neighborhood-map
+- Run npm install to install dependencies.
+- Run npm start
+
+## To use the app:
+- Simply click on a map marker or list item to bring up the modal window showing (a bit) more info.
+- You can filter the list by typing in the box at the top of the list.
+- Hopefully you'll get an idea of some of the delicious dining options around Amalie Arena, the greatest arena in NHL Hockey and home of the Tampa Bay Lightning.
+- Cheer for the Bolts!
+
+----------------------
 
 ## Table of Contents
+You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
