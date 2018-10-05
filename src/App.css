@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+
 .header {
   display: flex;
   background-color: #002868;
@@ -10,16 +13,22 @@
 }
 
 .header h1 {
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1px;
   color: white;
-padding: 10px;
+  padding: 10px;
+  font-size: 1.5em;
 }
 
 .header button {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 10px;
   margin-right: 20px;
-  font-size: 20px;
+  font-size: 16px;
+  line-height: 17px;
+  font-family: 'Oswald', sans-serif;
+  border: 1px solid #333;
 }
 
 .boltsPatchLogo {
@@ -37,7 +46,15 @@ padding: 10px;
 width: 100%;
 height: auto;
 background-color:#002868;
-padding: 20px 0;
+padding: 0;
+}
+
+.sidebar-text {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  text-align: center;
+  margin: 0px 5px 15px 5px;
+  padding-top: 10px
 }
 
 .sidebar input {
@@ -52,10 +69,12 @@ padding: 20px 0;
   padding-left: 0px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin: 20px auto 0;
 }
 
 .sidebar li {
+  font-family: 'Oswald', sans-serif;
   font-size: 12px;
   padding: 5px;
   margin: 3px;
@@ -70,10 +89,24 @@ padding: 20px 0;
   height: 80vh;
 }
 
+.info_box {
+  border: 2px solid #002868;
+  padding: 8px;
+}
+
+.info_box h2 {
+  color: #002868;
+  text-align: center;
+}
+
 @media screen and (min-width: 650px) {
   .sidebar {
     max-width: 350px;
     height: calc(100vh - 111px);
+    }
+
+    .sidebar ul {
+      justify-content: left;
     }
 
     #map {
@@ -84,4 +117,6 @@ padding: 20px 0;
       flex-direction: row;
     }
 }
+
+
 

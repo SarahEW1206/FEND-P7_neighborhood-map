@@ -136,7 +136,7 @@ class App extends Component {
   componentDidMount() {
 
     //When component is mounted, fetch foursquare data and set state to list of restaurants in data response.
-    fetch("https://api.foursquare.com/v2/venues/explore?client_id=FSPSJP5YR4LWW2H3PXKNOMMEV3WALNUQREGMOOBHST2YDBNR&client_secret=C5Y3AG0LE0ACRHLEQ3BP2P3SAL3I12S25XTAVIAEG14ZX2RF&v=20180323&limit=20&ll=27.9427,-82.4518&radius=10000&query=restaurants")
+    fetch("https://api.foursquare.com/v2/venues/explore?client_id=FSPSJP5YR4LWW2H3PXKNOMMEV3WALNUQREGMOOBHST2YDBNR&client_secret=C5Y3AG0LE0ACRHLEQ3BP2P3SAL3I12S25XTAVIAEG14ZX2RF&v=20180323&limit=20&ll=27.9427,-82.4518&radius=8000&query=restaurants")
       .then(res => res.json())
       //after Foursquare data comes back, set states accordingly and then initialize the map
       .then((data) => {
